@@ -119,7 +119,7 @@ Atau lewat terminal:
 
 | Android | Desktop |
 |---------|---------|
-| *(screenshot Android)* | *(screenshot Desktop)* |
+| *(screenshot Android)* |  |
 
 ---
 
