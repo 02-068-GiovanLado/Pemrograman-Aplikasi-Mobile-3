@@ -117,11 +117,11 @@ Atau lewat terminal:
 
 ### 🖥️ Desktop
 
-![Desktop Screenshot](screenshots/screenshot_desktop.png)
+![Desktop Screenshot](screenshots/screenshots_desktop.png)
 
 ### 📱 Android
 
-![Android Screenshot](screenshots/screenshot_android.png)
+![Android Screenshot](screenshots/screenshots_android.png)
 
 ---
 
