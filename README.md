@@ -1,48 +1,149 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop (JVM).
+# MyProfile App 📱
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+Aplikasi profil pribadi berbasis **Kotlin Multiplatform + Compose Multiplatform** yang dapat berjalan di **Android** dan **Desktop (JVM)** dari satu codebase.
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
-
-### Build and Run Android Application
-
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
-
-### Build and Run Desktop (JVM) Application
-
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
-
-### Build and Run iOS Application
-
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+> Tugas Praktikum Minggu 3 — IF25-22017 Pengembangan Aplikasi Mobile  
+> Institut Teknologi Sumatera
 
 ---
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## Tampilan Aplikasi
+
+| Bagian | Deskripsi |
+|--------|-----------|
+| Header | Foto profil circular, nama, dan title |
+| Tentang Saya | Bio/deskripsi singkat |
+| Informasi Kontak | Email, Phone, Location, GitHub (bisa disembunyikan) |
+| Skill & Teknologi | Chip-chip skill yang dimiliki |
+| Action Buttons | Tombol Edit Profil & Bagikan |
+
+---
+
+## Struktur Project
+
+```
+composeApp/src/commonMain/kotlin/com/example/myprofile/
+│
+├── App.kt                  ← Entry point utama aplikasi
+│
+├── model/
+│   └── ProfileData.kt      ← Data class profil pengguna
+│
+├── ui/
+│   ├── ProfileHeader.kt    ← Composable 1: Header + avatar circular
+│   ├── InfoItem.kt         ← Composable 2: Baris info (icon + label + nilai)
+│   ├── ProfileCard.kt      ← Composable 3: Card section generik
+│   └── SkillChip.kt        ← Composable 4: Chip skill/teknologi
+│
+└── theme/
+    └── Theme.kt            ← Warna dan konstanta tema aplikasi
+```
+
+---
+
+## Composable Functions
+
+### 1. `ProfileHeader`
+Menampilkan bagian atas halaman profil dengan avatar berbentuk lingkaran, nama, dan title/jabatan di atas background gradient biru.
+
+```kotlin
+ProfileHeader(
+    name = "Budi Santoso",
+    title = "Mobile Developer | ITERA"
+)
+```
+
+### 2. `InfoItem`
+Satu baris informasi yang terdiri dari icon berwarna, label kecil, dan nilai. Digunakan berulang untuk Email, Phone, Location, dan GitHub.
+
+```kotlin
+InfoItem(
+    icon = Icons.Filled.Email,
+    label = "Email",
+    value = "budi@itera.ac.id",
+    iconTint = Color.Red
+)
+```
+
+### 3. `ProfileCard`
+Card section generik dengan header (icon + judul) dan slot konten fleksibel menggunakan trailing lambda. Digunakan 3 kali untuk Bio, Kontak, dan Skills.
+
+```kotlin
+ProfileCard(title = "Tentang Saya", icon = Icons.Filled.Person) {
+    Text("isi konten bebas di sini")
+}
+```
+
+### 4. `SkillChip`
+Chip berbentuk pill kecil untuk menampilkan satu skill atau teknologi. Digunakan berulang dalam grid skills.
+
+```kotlin
+SkillChip(skill = "Kotlin")
+```
+
+---
+
+## Komponen UI yang Digunakan
+
+`Column` · `Row` · `Box` · `Card` · `Text` · `Button` · `OutlinedButton` · `Icon` · `HorizontalDivider` · `Modifier`
+
+---
+
+## Fitur Tambahan (Bonus)
+
+- **AnimatedVisibility** — section Informasi Kontak dapat disembunyikan/ditampilkan dengan animasi `fadeIn + slideInVertically`
+- **AppColors object** — semua warna terpusat di `Theme.kt` agar mudah diubah
+
+---
+
+## Cara Build & Menjalankan
+
+### Android
+Buka project di Android Studio, pilih konfigurasi `composeApp`, lalu klik **Run**.
+
+Atau lewat terminal:
+```bash
+./gradlew :composeApp:assembleDebug
+```
+
+### Desktop
+```bash
+./gradlew :composeApp:run
+```
+
+---
+
+## Screenshot
+
+> Tambahkan screenshot hasil build di sini sebelum submit.
+
+| Android | Desktop |
+|---------|---------|
+| *(screenshot Android)* | *(screenshot Desktop)* |
+
+---
+
+## Dependencies Utama
+
+```toml
+# gradle/libs.versions.toml
+compose-multiplatform = "1.7.x"
+```
+
+```kotlin
+// composeApp/build.gradle.kts
+commonMain.dependencies {
+    implementation(compose.material3)
+    implementation(compose.materialIconsExtended)
+    implementation(compose.foundation)
+}
+```
+
+---
+
+## Informasi Pengumpulan
+
+- **Repository:** push ke GitHub repository yang sama dengan tugas sebelumnya
+- **README:** sertakan screenshot aplikasi di Android/Desktop
+- **Deadline:** Sebelum Pertemuan 4
+- **Bobot:** 4%
