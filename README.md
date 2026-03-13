@@ -115,11 +115,13 @@ Atau lewat terminal:
 
 ## Screenshot
 
-> Tambahkan screenshot hasil build di sini sebelum submit.
+### 🖥️ Desktop
 
-| Android | Desktop |
-|---------|---------|
-| *(screenshot Android)* |  |
+![Desktop Screenshot](screenshots/screenshot_desktop.png)
+
+### 📱 Android
+
+![Android Screenshot](screenshots/screenshot_android.png)
 
 ---
 
