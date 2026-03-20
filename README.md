@@ -122,6 +122,9 @@ Atau lewat terminal:
 ### 📱 Android
 
 ![Android Screenshot](screenshots/screenshots_android.png)
+![Profile](screenshots/screenshots_profile.png)
+![Edit](screenshots/screenshots_edit.png)
+![Dark Mode](screenshots/screenshots_darkmode.png)
 
 ---
 
