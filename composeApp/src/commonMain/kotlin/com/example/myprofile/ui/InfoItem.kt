@@ -14,11 +14,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myprofile.theme.AppColors
+import com.example.myprofile.theme.AppTheme
 
 /**
- * COMPOSABLE 2 — InfoItem
- * Satu baris informasi: icon berwarna + label kecil + nilai.
- * Digunakan berulang untuk Email, Phone, Location, GitHub.
+ * COMPOSABLE 2 — InfoItem (updated)
+ * Ditambahkan parameter theme untuk mendukung dark/light mode.
  */
 @Composable
 fun InfoItem(
@@ -26,6 +26,7 @@ fun InfoItem(
     label: String,
     value: String,
     iconTint: Color = AppColors.IconDefault,
+    theme: AppTheme,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -34,7 +35,6 @@ fun InfoItem(
             .padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // ── Icon Container ────────────────────────────────────
         Box(
             modifier = Modifier
                 .size(40.dp)
@@ -51,19 +51,18 @@ fun InfoItem(
 
         Spacer(modifier = Modifier.width(14.dp))
 
-        // ── Label + Value ─────────────────────────────────────
         Column {
             Text(
                 text = label,
                 fontSize = 11.sp,
-                color = AppColors.TextHint,
+                color = theme.textHint,
                 fontWeight = FontWeight.Medium,
                 letterSpacing = 0.5.sp
             )
             Text(
                 text = value,
                 fontSize = 15.sp,
-                color = AppColors.TextPrimary
+                color = theme.textPrimary
             )
         }
     }

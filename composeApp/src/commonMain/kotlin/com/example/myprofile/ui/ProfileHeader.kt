@@ -6,8 +6,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,16 +25,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myprofile.theme.AppColors
+import com.example.myprofile.theme.AppTheme
 
 /**
- * COMPOSABLE 1 — ProfileHeader
- * Menampilkan foto profil circular, nama, dan title/jabatan
- * di atas background gradient biru.
+ * COMPOSABLE 1 — ProfileHeader (updated)
+ * Ditambahkan Dark Mode Toggle Switch di pojok kanan atas.
+ * State isDarkMode dan callback onToggleDarkMode di-hoist ke ViewModel.
  */
 @Composable
 fun ProfileHeader(
     name: String,
     title: String,
+    isDarkMode: Boolean,
+    onToggleDarkMode: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -41,14 +48,44 @@ fun ProfileHeader(
                     colors = listOf(AppColors.PrimaryDark, AppColors.Primary)
                 )
             )
-            .padding(vertical = 36.dp, horizontal = 16.dp),
-        contentAlignment = Alignment.Center
+            .padding(vertical = 36.dp, horizontal = 16.dp)
     ) {
+        // ── Dark Mode Toggle (pojok kanan atas) ───────────────
+        Row(
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(top = 0.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Icon(
+                imageVector = if (isDarkMode) Icons.Filled.DarkMode else Icons.Filled.LightMode,
+                contentDescription = "Mode",
+                tint = Color.White.copy(alpha = 0.8f),
+                modifier = Modifier.size(16.dp)
+            )
+            Switch(
+                checked = isDarkMode,
+                onCheckedChange = { onToggleDarkMode() },
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = Color.White,
+                    checkedTrackColor = Color(0xFF5C6BC0),
+                    uncheckedThumbColor = Color.White,
+                    uncheckedTrackColor = Color(0x55FFFFFF)
+                ),
+                modifier = Modifier.height(24.dp)
+            )
+        }
+
+        // ── Konten Tengah ─────────────────────────────────────
         Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            // ── Foto Profil Circular ──────────────────────────
+            // Foto profil circular
             Box(
                 modifier = Modifier
                     .size(110.dp)
@@ -65,7 +102,6 @@ fun ProfileHeader(
                 )
             }
 
-            // ── Nama ─────────────────────────────────────────
             Text(
                 text = name,
                 fontSize = 26.sp,
@@ -74,7 +110,6 @@ fun ProfileHeader(
                 textAlign = TextAlign.Center
             )
 
-            // ── Title Badge ───────────────────────────────────
             Box(
                 modifier = Modifier
                     .background(Color(0x44FFFFFF), RoundedCornerShape(20.dp))

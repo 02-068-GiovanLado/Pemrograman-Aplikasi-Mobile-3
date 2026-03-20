@@ -13,20 +13,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myprofile.theme.AppColors
+import com.example.myprofile.theme.AppTheme
 
 /**
- * COMPOSABLE 4 — SkillChip
- * Chip kecil berbentuk pill untuk menampilkan satu skill/teknologi.
- * Digunakan berulang dalam baris FlowRow di section Skills.
+ * COMPOSABLE 4 — SkillChip (updated)
+ * Ditambahkan parameter theme untuk mendukung dark/light mode.
  */
 @Composable
 fun SkillChip(
     skill: String,
+    theme: AppTheme,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
-            .background(AppColors.Divider, RoundedCornerShape(20.dp))
+            .background(theme.divider, RoundedCornerShape(20.dp))
             .border(1.dp, Color(0xFF9FA8DA), RoundedCornerShape(20.dp))
             .padding(horizontal = 12.dp, vertical = 6.dp)
     ) {

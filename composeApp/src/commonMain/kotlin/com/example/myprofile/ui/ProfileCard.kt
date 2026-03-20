@@ -11,21 +11,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myprofile.theme.AppColors
+import com.example.myprofile.theme.AppTheme
 
 /**
- * COMPOSABLE 3 — ProfileCard
- * Card section generik dengan header (icon + judul) dan
- * slot konten yang fleksibel menggunakan trailing lambda.
- *
- * Penggunaan:
- *   ProfileCard(title = "Bio", icon = Icons.Filled.Person) {
- *       Text("isi konten di sini")
- *   }
+ * COMPOSABLE 3 — ProfileCard (updated)
+ * Ditambahkan parameter theme untuk mendukung dark/light mode.
  */
 @Composable
 fun ProfileCard(
     title: String,
     icon: ImageVector,
+    theme: AppTheme,
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {
@@ -35,11 +31,9 @@ fun ProfileCard(
             .padding(horizontal = 16.dp, vertical = 8.dp),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = AppColors.Surface)
+        colors = CardDefaults.cardColors(containerColor = theme.surface)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-
-            // ── Section Header ────────────────────────────────
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(bottom = 10.dp)
@@ -59,10 +53,9 @@ fun ProfileCard(
                 )
             }
 
-            HorizontalDivider(color = AppColors.Divider, thickness = 1.dp)
+            HorizontalDivider(color = theme.divider, thickness = 1.dp)
             Spacer(modifier = Modifier.height(8.dp))
 
-            // ── Slot Konten ───────────────────────────────────
             content()
         }
     }
