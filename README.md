@@ -48,8 +48,8 @@ Menampilkan bagian atas halaman profil dengan avatar berbentuk lingkaran, nama, 
 
 ```kotlin
 ProfileHeader(
-    name = "Budi Santoso",
-    title = "Mobile Developer | ITERA"
+    name = "Giovan Lado",
+    title = "Data Engineer | ITERA"
 )
 ```
 
@@ -60,7 +60,7 @@ Satu baris informasi yang terdiri dari icon berwarna, label kecil, dan nilai. Di
 InfoItem(
     icon = Icons.Filled.Email,
     label = "Email",
-    value = "budi@itera.ac.id",
+    value = "giovan.123140068@itera.ac.id",
     iconTint = Color.Red
 )
 ```
